@@ -12,7 +12,7 @@ private:
     int lives;
     MainHeroMgr *hero;
 public:
-    SceneGame();
+    SceneGame() noexcept;
     ~SceneGame();
     void render(SDL_Renderer *renderer);
     void render_clean(SDL_Renderer *renderer);

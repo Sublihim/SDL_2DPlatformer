@@ -12,12 +12,12 @@
 class SDL_Game
 {
 private:
-    SDL_Window *window;
-	SDL_Renderer *renderer;
-	SceneMgr *s_mgr;
+    SDL_Window *window = nullptr;
+	SDL_Renderer *renderer = nullptr;
+	SceneMgr *s_mgr = nullptr;
 	std::string SDL_error_msg;
 public:
-    SDL_Game();
+    SDL_Game() noexcept;
     ~SDL_Game();
     std::string getErrorMsg();
     bool init(const char* title, int xpos, int ypos,

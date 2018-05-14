@@ -15,6 +15,7 @@ protected:
     SDL_Rect g_obj_cleaner;
     std::string errorText;
 public:
+    GameObjectMgr() noexcept : g_obj(nullptr) {}
     virtual ~GameObjectMgr() {};
     virtual std::string getErrorText();
     virtual bool init(SDL_Renderer *renderer) = 0;

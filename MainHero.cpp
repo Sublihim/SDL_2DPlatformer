@@ -2,7 +2,8 @@
 #include <SDL2/SDL_image.h>
 #include "TextureMgr.h"
 
-MainHero::MainHero()
+MainHero::MainHero() noexcept
+    : hero_texture(nullptr)
 {
     // Задаем размеры главного героя
     g_obj_zone.x = 100;

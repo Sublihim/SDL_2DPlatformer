@@ -1,7 +1,8 @@
 #include "MainHeroMgr.h"
 #include "MainHero.h"
 
-MainHeroMgr::MainHeroMgr()
+MainHeroMgr::MainHeroMgr() noexcept 
+    : GameObjectMgr()
 {
     g_obj = new MainHero();
     g_obj_cleaner = g_obj->getGameObjectZone();

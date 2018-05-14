@@ -2,11 +2,9 @@
 #include "Debug.h"
 #include <SDL2/SDL_mixer.h>
 
-SDL_Game::SDL_Game()
+SDL_Game::SDL_Game() noexcept
 {
     SDL_error_msg = "";
-    window = NULL;
-	renderer = NULL;
 }
 
 SDL_Game::~SDL_Game()

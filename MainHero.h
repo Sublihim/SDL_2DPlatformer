@@ -17,7 +17,7 @@ private:
     TextureMgr *textureMgr;
     std::string textureName;
 public:
-    MainHero();
+    MainHero() noexcept;
     ~MainHero();
     bool init(SDL_Renderer *renderer);
     void setTextureRowAndFrame(int row, int frame);

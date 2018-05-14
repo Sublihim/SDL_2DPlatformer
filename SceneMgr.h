@@ -10,14 +10,14 @@
 class SceneMgr
 {
 private:
-    Scene *active;
+    Scene *active = nullptr;
     std::vector<Scene*> v_scenes;
     void add_scene(Scene *scene, bool set_active = true);
     void delete_all_scenes();
     void reinit();
     void start_new_game();
 public:
-    SceneMgr();
+    SceneMgr() noexcept;
     ~SceneMgr();
     void render(SDL_Renderer *renderer);
     gameReaction process_mouse_motion(Sint32 x, Sint32 y);

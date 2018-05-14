@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-SceneGame::SceneGame()
+SceneGame::SceneGame() noexcept
 {
     lives = 3; // Выставляем количество жизней
     hero = new MainHeroMgr();

@@ -10,7 +10,7 @@ class MainHeroMgr : public GameObjectMgr
 private:
     int hero_step;
 public:
-    MainHeroMgr();
+    MainHeroMgr() noexcept;
     ~MainHeroMgr();
     bool init(SDL_Renderer *renderer);
     void setMoveStep(int step);

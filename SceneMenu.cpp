@@ -1,7 +1,7 @@
 #include "SceneMenu.h"
 #include "Debug.h"
 
-SceneMenu::SceneMenu()
+SceneMenu::SceneMenu() noexcept
 {
     delay_time = DELAT_TIME_MENU;
 

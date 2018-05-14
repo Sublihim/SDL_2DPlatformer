@@ -11,7 +11,7 @@ private:
     ui::ButtonPtr btn_new_game {nullptr};
     ui::ButtonPtr btn_exit {nullptr};
 public:
-    SceneMenu();
+    SceneMenu() noexcept;
     ~SceneMenu();
     void render(SDL_Renderer *renderer);
     gameReaction process_mouse_motion(Sint32 x, Sint32 y);

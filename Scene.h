@@ -10,7 +10,7 @@ class Scene
 protected:
     bool b_paused = true;
     bool b_first_render = true;
-    int delay_time;
+    int delay_time = -1;
 public:
     virtual ~Scene() {};
     void setPaused(bool paused);

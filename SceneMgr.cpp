@@ -3,7 +3,7 @@
 #include "SceneMenuPause.h"
 #include "Debug.h"
 
-SceneMgr::SceneMgr()
+SceneMgr::SceneMgr() noexcept
 {
     add_scene(new SceneMenu()); // Основное меню
 }
