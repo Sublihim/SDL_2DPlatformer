@@ -41,8 +41,10 @@ public:
 
 } // namespace dbg
 
+#define NO_DEBUG_CALL while (false) dbg::NoDebug
+
 #ifndef DEBUG_MESSAGES_SHOW
-    #define debug dbg::NoDebug
+    #define debug NO_DEBUG_CALL
 #else
     #define debug dbg::Debug
 #endif
