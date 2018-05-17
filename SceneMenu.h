@@ -1,7 +1,6 @@
 #ifndef SCENEMENU_H_INCLUDED
 #define SCENEMENU_H_INCLUDED
 
-#include "DebugParams.h"
 #include "Scene.h"
 #include "ui/Button.h"
 

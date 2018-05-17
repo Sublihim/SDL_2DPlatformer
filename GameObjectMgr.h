@@ -1,7 +1,6 @@
 #ifndef GAMEOBJECTMGR_H_INCLUDED
 #define GAMEOBJECTMGR_H_INCLUDED
 
-#include "DebugParams.h"
 #include "MainConstants.h"
 #include <SDL2/SDL.h>
 #include <iostream>

@@ -8,8 +8,6 @@ SceneGame::SceneGame() noexcept
 {
     lives = 3; // Выставляем количество жизней
     hero = new MainHeroMgr();
-
-    delay_time = DELAY_TIME_GAME;
 }
 
 SceneGame::~SceneGame()
@@ -37,8 +35,6 @@ void SceneGame::render(SDL_Renderer *renderer)
         hero->draw(renderer);
 
         SDL_RenderPresent(renderer);
-
-        SDL_Delay(delay_time);
     }
 }
 

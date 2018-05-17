@@ -1,7 +1,6 @@
 #ifndef GAMEOBJECT_H_INCLUDED
 #define GAMEOBJECT_H_INCLUDED
 
-#include "DebugParams.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 

@@ -1,7 +1,6 @@
 #ifndef GAMESCENE_H_INCLUDED
 #define GAMESCENE_H_INCLUDED
 
-#include "DebugParams.h"
 #include <string>
 #include "Scene.h"
 #include "MainHeroMgr.h"

@@ -1,7 +1,6 @@
 #ifndef SCENE_H_INCLUDED
 #define SCENE_H_INCLUDED
 
-#include "DebugParams.h"
 #include "MainConstants.h"
 #include <SDL2/SDL.h>
 
@@ -10,7 +9,6 @@ class Scene
 protected:
     bool b_paused = true;
     bool b_first_render = true;
-    int delay_time = -1;
 public:
     virtual ~Scene() {};
     void setPaused(bool paused);

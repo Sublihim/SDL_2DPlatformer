@@ -82,6 +82,19 @@ void SDL_Game::render()
     s_mgr->render(renderer);
 }
 
+void SDL_Game::identFrameStart()
+{
+    frameStart = SDL_GetTicks();
+}
+
+void SDL_Game::execFrameDelay()
+{
+    // Стабильная частота кадров
+    frameTime = SDL_GetTicks() - frameStart;
+    if(frameDelay > frameTime)
+        SDL_Delay(frameDelay - frameTime);
+}
+
 std::string SDL_Game::getErrorMsg()
 {
     return SDL_error_msg;

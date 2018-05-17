@@ -15,7 +15,7 @@ MainHeroMgr::MainHeroMgr() noexcept
     gr_power_mgr->setBeginPoint(g_obj->getPositionBeginX(), g_obj->getPositionBeginY());
     gr_power_mgr->setSpeed(50);
     gr_power_mgr->setAngle(-58);
-    gr_power_mgr->setTimeStep(0.1);
+    gr_power_mgr->setTimeStep(0.25);
 }
 
 MainHeroMgr::~MainHeroMgr()

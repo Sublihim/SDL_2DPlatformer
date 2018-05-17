@@ -3,8 +3,6 @@
 
 SceneMenuPause::SceneMenuPause() noexcept
 {
-    delay_time = DELAT_TIME_MENU;
-
     int menuPosition_x = 120;
     int menuPosition_y = 100;
 
@@ -60,8 +58,6 @@ void SceneMenuPause::render(SDL_Renderer *renderer)
     btn_exit->draw(renderer);
 
     SDL_RenderPresent(renderer);
-
-    SDL_Delay(delay_time);
 }
 
 gameReaction SceneMenuPause::process_mouse_motion(Sint32 x, Sint32 y)

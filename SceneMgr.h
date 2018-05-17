@@ -1,7 +1,6 @@
 #ifndef SCENEMGR_H_INCLUDED
 #define SCENEMGR_H_INCLUDED
 
-#include "DebugParams.h"
 #include <vector>
 #include <SDL2/SDL.h>
 #include "Scene.h"

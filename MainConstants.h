@@ -5,9 +5,6 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 constexpr double PI_by_180 = 3.14159265 / 180;
 
-const int DELAY_TIME_GAME = 5;
-const int DELAT_TIME_MENU = 50;
-
 enum gameReaction {
     gr_ignore,
     gr_start_new,
