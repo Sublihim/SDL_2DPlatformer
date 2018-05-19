@@ -4,7 +4,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "Scene.h"
-#include "SceneGame.h"
+
 
 class SceneMgr
 {
