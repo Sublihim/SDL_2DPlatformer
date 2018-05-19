@@ -1,6 +1,8 @@
-#include "MainConstants.h"
 #include "nZSceneGame.h"
+#include "MainConstants.h"
 #include "Debug.h"
+#include "MainHeroMgr.h"
+
 #include <iostream>
 
 

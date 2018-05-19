@@ -3,7 +3,8 @@
 
 #include <string>
 #include "Scene.h"
-#include "MainHeroMgr.h"
+
+class MainHeroMgr;
 
 class nZSceneGame: public Scene
 {
