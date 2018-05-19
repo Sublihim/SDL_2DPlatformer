@@ -11,7 +11,6 @@ class MainHero : public GameObject
 {
 private:
     std::string spriteFilePath;
-    SDL_Texture *hero_texture;
     int curRow;
     int curFrame;
     TextureMgr *textureMgr;
