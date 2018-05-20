@@ -10,12 +10,12 @@ SDL_Rect GameObject::getGameObjectZone()
     return g_obj_zone;
 }
 
-int GameObject::getPositionBeginX()
+int GameObject::getPositionBeginX() const
 {
     return g_obj_zone.x;
 }
 
-int GameObject::getPositionBeginY()
+int GameObject::getPositionBeginY() const
 {
     return g_obj_zone.y;
 }
