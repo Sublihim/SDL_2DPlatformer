@@ -5,12 +5,15 @@
 #include "Scene.h"
 
 class MainHeroMgr;
+class SimpleTextureMgr;
 
 class nZSceneGame: public Scene
 {
 private:
     int lives;
     MainHeroMgr *hero;
+    SimpleTextureMgr* bg;
+    SDL_Rect camera;
 public:
     nZSceneGame();
     ~nZSceneGame();

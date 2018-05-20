@@ -2,14 +2,17 @@
 #include "MainConstants.h"
 #include "Debug.h"
 #include "MainHeroMgr.h"
+#include "SimpleTextureMgr.h"
 
 #include <iostream>
 
+// количество жизней
+static const int LIVES_COUNT = 3;
 
 nZSceneGame::nZSceneGame()
+    : lives(LIVES_COUNT), hero(new MainHeroMgr()), bg(new SimpleTextureMgr())
 {
-    lives = 3; // Выставляем количество жизней
-    hero = new MainHeroMgr();
+    camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 }
 
 nZSceneGame::~nZSceneGame()
@@ -32,9 +35,13 @@ void nZSceneGame::render(SDL_Renderer *renderer)
 
             if(!hero->init(renderer))
                 std::cout << "Error: " << hero->getErrorText() << std::endl;
+
+            if(!bg->load(renderer, "assets/BG.png"))
+                debug() << "Error load bg" << std::endl;
         }
 
         hero->draw(renderer);
+        bg->render(renderer, 0, 0, &camera);
 
         SDL_RenderPresent(renderer);
     }
