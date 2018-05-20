@@ -2,9 +2,9 @@
 #include "MainHero.h"
 
 MainHeroMgr::MainHeroMgr()
+ : gameWidth(0), gameHeight(0)
 {
     g_obj = new MainHero();
-    g_obj_cleaner = g_obj->getGameObjectZone();
     g_obj->setTextureRowAndFrame(1, 0);
 
     hero_step = 15;
@@ -51,9 +51,20 @@ void MainHeroMgr::draw(SDL_Renderer *renderer)
             b_jumping = false;
     }
 
-    SDL_RenderFillRect(renderer, &g_obj_cleaner);
-    g_obj_cleaner = g_obj->getGameObjectZone();
     g_obj->draw(renderer);
+}
+
+void MainHeroMgr::draw(SDL_Renderer *renderer, const SDL_Rect& camera)
+{
+    if(b_jumping)
+    {
+        SDL_Point p_next = gr_power_mgr->affectWithGravityPower();
+        g_obj->setPosition(p_next.x, p_next.y);
+        if(p_next.y >= SCREEN_HEIGHT)
+            b_jumping = false;
+    }
+    //TODO по возможности отказаться от dc
+    dynamic_cast<MainHero*>(g_obj)->draw(renderer, camera);
 }
 
 
@@ -76,23 +87,45 @@ gameReaction MainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
     if(!b_jumping)
     {
+        int posX = g_obj->getPositionBeginX(),
+            posY = g_obj->getPositionBeginY();
+
         if(keycode == SDLK_LEFT)
         {
-            g_obj->setPosition(g_obj->getPositionBeginX() - hero_step, g_obj->getPositionBeginY());
+            posX -= hero_step;
             gr_power_mgr->setAngle(-90-(90-58));
             g_obj->setTextureRowAndFrame(2, 0);
         }
         else if(keycode == SDLK_RIGHT)
         {
-            g_obj->setPosition(g_obj->getPositionBeginX() + hero_step, g_obj->getPositionBeginY());
+            posX += hero_step;
             gr_power_mgr->setAngle(-58);
             g_obj->setTextureRowAndFrame(1, 0);
+        }
+        else if(keycode == SDLK_UP)
+        {
+            posY -= hero_step;
+        }
+        else if (keycode == SDLK_DOWN)
+        {
+            posY += hero_step;
         }
         else if(keycode == SDLK_SPACE)
         {
             gr_power_mgr->setBeginPoint(g_obj->getPositionBeginX(), g_obj->getPositionBeginY());
             b_jumping = true;
         }
+
+        if (posX < 0)
+            posX = 0;
+        if (posX + g_obj->getObjectWidth() > gameWidth)
+            posX -= hero_step;
+        if (posY < 0)
+            posY = 0;
+        if (posY + g_obj->getObjectHeight() > gameHeight)
+            posY -= hero_step;
+
+        g_obj->setPosition(posX, posY);
     }
 
     return gameReaction::gr_ignore;
@@ -110,4 +143,11 @@ SDL_Point MainHeroMgr::getPoint() const
     res.y = (y + h / 2) - SCREEN_HEIGHT / 2;
 
     return res;
+}
+
+
+void MainHeroMgr::setGameBounds(int width, int height)
+{
+    gameWidth = width;
+    gameHeight = height;
 }

@@ -30,15 +30,13 @@ void nZSceneGame::render(SDL_Renderer *renderer)
         {
             setFirstRenderState(false);
 
-            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-            SDL_RenderClear( renderer );
-            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-
             if(!hero->init(renderer))
                 std::cout << "Error: " << hero->getErrorText() << std::endl;
 
             if(!bg->load(renderer, "assets/BG.png"))
                 debug() << "Error load bg" << std::endl;
+
+            hero->setGameBounds(bg->getWidth(), bg->getHeight());
         }
 
         SDL_Point pointHero = hero->getPoint();
@@ -57,7 +55,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
             camera.y = bg->getHeight() - camera.h;
 
         bg->render(renderer, 0, 0, &camera);
-        hero->draw(renderer);
+        hero->draw(renderer, camera);
 
         SDL_RenderPresent(renderer);
     }

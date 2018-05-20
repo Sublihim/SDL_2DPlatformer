@@ -45,3 +45,17 @@ void MainHero::draw(SDL_Renderer *renderer)
     //textureMgr->draw(textureName, g_obj_zone.x, g_obj_zone.y, g_obj_zone.w, g_obj_zone.h, renderer);
     textureMgr->drawFrame(textureName, g_obj_zone.x, g_obj_zone.y, g_obj_zone.w, g_obj_zone.h, curRow, curFrame, renderer);
 }
+
+void MainHero::draw(SDL_Renderer *renderer, const SDL_Rect& camera)
+{
+    textureMgr->drawFrame(
+        textureName,
+        g_obj_zone.x - camera.x,
+        g_obj_zone.y - camera.y,
+        g_obj_zone.w,
+        g_obj_zone.h,
+        curRow,
+        curFrame,
+        renderer
+    );
+}
