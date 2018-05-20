@@ -56,6 +56,7 @@ void MainHeroMgr::draw(SDL_Renderer *renderer)
     g_obj->draw(renderer);
 }
 
+
 bool MainHeroMgr::checkCollisionWithGameObject(GameObject *g_obj)
 {
     return false;
@@ -92,7 +93,21 @@ gameReaction MainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
             gr_power_mgr->setBeginPoint(g_obj->getPositionBeginX(), g_obj->getPositionBeginY());
             b_jumping = true;
         }
-    } 
+    }
 
     return gameReaction::gr_ignore;
+}
+
+SDL_Point MainHeroMgr::getPoint() const
+{
+    SDL_Point res;
+    int x = g_obj->getPositionBeginX();
+    int y = g_obj->getPositionBeginY();
+    int w = g_obj->getObjectWidth();
+    int h = g_obj->getObjectHeight();
+
+    res.x = (x + w / 2) - SCREEN_WIDTH / 2;
+    res.y = (y + h / 2) - SCREEN_HEIGHT / 2;
+
+    return res;
 }
