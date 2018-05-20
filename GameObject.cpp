@@ -20,6 +20,16 @@ int GameObject::getPositionBeginY() const
     return g_obj_zone.y;
 }
 
+int GameObject::getObjectWidth() const
+{
+    return g_obj_zone.w;
+}
+
+int GameObject::getObjectHeight() const
+{
+    return g_obj_zone.h;
+}
+
 void GameObject::setPosition(int x, int y)
 {
     g_obj_zone.x = x;
