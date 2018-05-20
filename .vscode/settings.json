@@ -28,5 +28,6 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "string": "cpp"
-    }
+    },
+    "editor.fontSize": 13
 }
