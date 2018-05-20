@@ -18,6 +18,7 @@ nZSceneGame::nZSceneGame()
 nZSceneGame::~nZSceneGame()
 {
     delete hero;
+    delete bg;
     debug() << "nZSceneGame end" << std::endl;
 }
 
@@ -40,8 +41,23 @@ void nZSceneGame::render(SDL_Renderer *renderer)
                 debug() << "Error load bg" << std::endl;
         }
 
-        hero->draw(renderer);
+        SDL_Point pointHero = hero->getPoint();
+
+        camera.x = pointHero.x;
+        camera.y = pointHero.y;
+
+        if( camera.x < 0 )
+            camera.x = 0;
+        else if( camera.x > bg->getWidth() - camera.w )
+            camera.x = bg->getWidth() - camera.w;
+
+        if( camera.y < 0 )
+            camera.y = 0;
+        else if( camera.y > bg->getHeight() - camera.h )
+            camera.y = bg->getHeight() - camera.h;
+
         bg->render(renderer, 0, 0, &camera);
+        hero->draw(renderer);
 
         SDL_RenderPresent(renderer);
     }
