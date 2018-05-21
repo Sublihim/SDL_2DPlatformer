@@ -8,13 +8,15 @@ class GameObject
 {
 protected:
     SDL_Rect g_obj_zone;
-    std::string errorText; 
+    std::string errorText;
 public:
     virtual ~GameObject() {};
     virtual std::string getErrorText();
     virtual SDL_Rect getGameObjectZone();
-    virtual int getPositionBeginX();
-    virtual int getPositionBeginY();
+    virtual int getPositionBeginX() const;
+    virtual int getPositionBeginY() const;
+    virtual int getObjectWidth() const;
+    virtual int getObjectHeight() const;
     virtual void setPosition(int x, int y);
     virtual void setGameObjectZone(int x, int y, int w, int h);
     virtual bool init(SDL_Renderer *renderer) = 0;

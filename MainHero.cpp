@@ -6,10 +6,8 @@ MainHero::MainHero() noexcept
     : hero_texture(nullptr)
 {
     // Задаем размеры главного героя
-    g_obj_zone.x = 100;
-    g_obj_zone.y = 100;
-    g_obj_zone.w = 56;
-    g_obj_zone.h = 71;
+    //             x    y    w   h
+    g_obj_zone = {100, 100, 56, 71};
 
     curRow = 1;
     curFrame = 0;
@@ -29,13 +27,12 @@ MainHero::~MainHero()
 
 bool MainHero::init(SDL_Renderer *renderer)
 {
-    if(textureMgr->load(spriteFilePath, textureName, renderer))
-        return true;
-    else
+    if(!textureMgr->load(spriteFilePath, textureName, renderer))
     {
         errorText = SDL_GetError();
         return false;
     }
+    return true;
 }
 
 void MainHero::setTextureRowAndFrame(int row, int frame)
@@ -48,4 +45,18 @@ void MainHero::draw(SDL_Renderer *renderer)
 {
     //textureMgr->draw(textureName, g_obj_zone.x, g_obj_zone.y, g_obj_zone.w, g_obj_zone.h, renderer);
     textureMgr->drawFrame(textureName, g_obj_zone.x, g_obj_zone.y, g_obj_zone.w, g_obj_zone.h, curRow, curFrame, renderer);
+}
+
+void MainHero::draw(SDL_Renderer *renderer, const SDL_Rect& camera)
+{
+    textureMgr->drawFrame(
+        textureName,
+        g_obj_zone.x - camera.x,
+        g_obj_zone.y - camera.y,
+        g_obj_zone.w,
+        g_obj_zone.h,
+        curRow,
+        curFrame,
+        renderer
+    );
 }

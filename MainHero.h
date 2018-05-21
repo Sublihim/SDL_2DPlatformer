@@ -11,7 +11,6 @@ class MainHero : public GameObject
 {
 private:
     std::string spriteFilePath;
-    SDL_Texture *hero_texture;
     int curRow;
     int curFrame;
     TextureMgr *textureMgr;
@@ -22,6 +21,7 @@ public:
     bool init(SDL_Renderer *renderer);
     void setTextureRowAndFrame(int row, int frame);
     void draw(SDL_Renderer *renderer);
+    void draw(SDL_Renderer *renderer, const SDL_Rect& camera);
 };
 
 #endif // MAINHERO_H_INCLUDED

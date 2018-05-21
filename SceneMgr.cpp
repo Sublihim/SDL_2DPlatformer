@@ -2,6 +2,8 @@
 #include "SceneMenu.h"
 #include "SceneMenuPause.h"
 #include "Debug.h"
+//#include "SceneGame.h"
+#include "nZSceneGame.h"
 
 SceneMgr::SceneMgr() noexcept
 {
@@ -52,7 +54,8 @@ void SceneMgr::reinit()
 
 void SceneMgr::start_new_game()
 {
-    add_scene(new SceneGame());
+    //add_scene(new SceneGame());
+    add_scene(new nZSceneGame());
     add_scene(new SceneMenuPause(), false); // Меню паузы
 }
 
