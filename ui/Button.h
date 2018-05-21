@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <memory>
-#include "../Creator.h"
+#include "../utils/SPointerStrategy.h"
 #include "FontMgr.h"
 
 namespace ui {

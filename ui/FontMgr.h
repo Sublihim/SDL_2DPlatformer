@@ -4,7 +4,7 @@
 #include "../MainConstants.h"
 #include <string>
 #include <memory>
-#include "../Creator.h"
+#include "../utils/SPointerStrategy.h"
 #include <SDL2/SDL_ttf.h>
 
 namespace ui {
