@@ -3,6 +3,7 @@
 #include "Debug.h"
 #include "MainHeroMgr.h"
 #include "SimpleTextureMgr.h"
+#include "LangMgr.h"
 
 #include <iostream>
 
@@ -13,6 +14,12 @@ nZSceneGame::nZSceneGame()
     : lives(LIVES_COUNT), hero(new MainHeroMgr()), bg(new SimpleTextureMgr())
 {
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
+    font_game_info = ui::FontMgr::create();
+    font_game_info->setFontName("assets/fonts/XoloniumBold.ttf");
+    font_game_info->setFontSize(26);
+    font_game_info->setFontColor({0xa8, 0x2f, 0x14});
+    font_game_info->setLetterSizeInPX(20);
 }
 
 nZSceneGame::~nZSceneGame()
@@ -56,6 +63,10 @@ void nZSceneGame::render(SDL_Renderer *renderer)
 
         bg->render(renderer, 0, 0, &camera);
         hero->draw(renderer, camera);
+
+        LangMgr* lang_mgr = LangMgr::Init();
+        static std::string lives_caption = lang_mgr->getPhrase("scene_lives") + ": " + std::to_string(lives);
+        font_game_info->paintText(renderer, lives_caption, SCREEN_HEIGHT - 30, 30, ui::fontAlign::right);
 
         SDL_RenderPresent(renderer);
     }

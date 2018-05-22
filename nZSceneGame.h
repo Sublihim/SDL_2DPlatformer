@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Scene.h"
+#include "ui/FontMgr.h"
 
 class MainHeroMgr;
 class SimpleTextureMgr;
@@ -14,6 +15,7 @@ private:
     MainHeroMgr *hero;
     SimpleTextureMgr* bg;
     SDL_Rect camera;
+    ui::FontMgrPtr font_game_info;
 public:
     nZSceneGame();
     ~nZSceneGame();
