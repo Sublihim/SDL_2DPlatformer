@@ -12,10 +12,10 @@ SceneGame::SceneGame()
     hero = new MainHeroMgr();
 
     // Задаем параметры текста
-    
+
     font_color = {0, 0, 255};
 
-    font_game_info = new ui::FontMgr();
+    font_game_info = ui::FontMgr::create();
     font_game_info->setFontName("assets/fonts/XoloniumBold.ttf");
     font_game_info->setFontSize(26);
     font_game_info->setFontColor(font_color);
@@ -24,7 +24,6 @@ SceneGame::SceneGame()
 
 SceneGame::~SceneGame()
 {
-    delete font_game_info;
     delete hero;
     debug() << "SceneGame end" << std::endl;
 }
