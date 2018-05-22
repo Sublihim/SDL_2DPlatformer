@@ -27,6 +27,7 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "unordered_map": "cpp"
     }
 }

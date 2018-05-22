@@ -88,9 +88,9 @@ DEP_RELEASE =
 OUT_RELEASE = bin/Release/$(EXEC_FILE_NAME)
 endif
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)$(PATH_DELIM)SDL_Game.o $(OBJDIR_DEBUG)$(PATH_DELIM)Scene.o $(OBJDIR_DEBUG)$(PATH_DELIM)nZSceneGame.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneGame.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenu.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenuPause.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)main.o $(OBJDIR_DEBUG)$(PATH_DELIM)Button.o $(OBJDIR_DEBUG)$(PATH_DELIM)FontMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObject.o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObjectMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHero.o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHeroMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)TextureMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)SimpleTextureMgr.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)$(PATH_DELIM)SDL_Game.o $(OBJDIR_DEBUG)$(PATH_DELIM)Scene.o $(OBJDIR_DEBUG)$(PATH_DELIM)nZSceneGame.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneGame.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenu.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenuPause.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)main.o $(OBJDIR_DEBUG)$(PATH_DELIM)Button.o $(OBJDIR_DEBUG)$(PATH_DELIM)FontMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObject.o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObjectMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHero.o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHeroMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)TextureMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)SimpleTextureMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)LangMgr.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)$(PATH_DELIM)SDL_Game.o $(OBJDIR_RELEASE)$(PATH_DELIM)Scene.o $(OBJDIR_RELEASE)$(PATH_DELIM)nZSceneGame.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneGame.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenu.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenuPause.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)main.o $(OBJDIR_RELEASE)$(PATH_DELIM)Button.o $(OBJDIR_RELEASE)$(PATH_DELIM)FontMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObject.o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObjectMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHero.o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHeroMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)TextureMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)SimpleTextureMgr.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)$(PATH_DELIM)SDL_Game.o $(OBJDIR_RELEASE)$(PATH_DELIM)Scene.o $(OBJDIR_RELEASE)$(PATH_DELIM)nZSceneGame.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneGame.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenu.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenuPause.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)main.o $(OBJDIR_RELEASE)$(PATH_DELIM)Button.o $(OBJDIR_RELEASE)$(PATH_DELIM)FontMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObject.o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObjectMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHero.o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHeroMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)TextureMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)SimpleTextureMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)LangMgr.o
 
 all: debug release
 
@@ -108,8 +108,10 @@ endif
 after_debug:
 ifeq ($(OS),Windows_NT)
 	xcopy /E /Y assets bin\\Debug\\assets\\
+	xcopy /E /Y lang bin\\Debug\\lang\\
 else
 	cp -rf assets bin/Debug
+	cp -rf lang bin/Debug
 endif
 
 debug: before_debug out_debug after_debug
@@ -168,6 +170,9 @@ $(OBJDIR_DEBUG)$(PATH_DELIM)TextureMgr.o: TextureMgr.cpp
 $(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o: GravityPowerMgr.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c GravityPowerMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o
 
+$(OBJDIR_DEBUG)$(PATH_DELIM)LangMgr.o: LangMgr.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c LangMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)LangMgr.o
+
 
 clean_debug:
 ifeq ($(OS),Windows_NT)
@@ -192,8 +197,10 @@ endif
 after_release:
 ifeq ($(OS),Windows_NT)
 	xcopy /E /Y assets bin\\Release\\assets\\
+	xcopy /E /Y lang bin\\Release\\lang\\
 else
 	cp -rf assets bin/Release
+	cp -rf lang bin/Release
 endif
 
 release: before_release out_release after_release
@@ -251,6 +258,9 @@ $(OBJDIR_RELEASE)$(PATH_DELIM)TextureMgr.o: TextureMgr.cpp
 
 $(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o: GravityPowerMgr.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_RELEASE) -c GravityPowerMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o
+
+$(OBJDIR_RELEASE)$(PATH_DELIM)LangMgr.o: LangMgr.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_RELEASE) -c LangMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)LangMgr.o
 
 clean_release:
 ifeq ($(OS),Windows_NT)

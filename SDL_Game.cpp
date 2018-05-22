@@ -1,5 +1,6 @@
 #include "SDL_Game.h"
 #include "Debug.h"
+#include "LangMgr.h"
 #include <SDL2/SDL_mixer.h>
 
 SDL_Game::SDL_Game()
@@ -40,6 +41,12 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
         else
             renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 	}
+
+    // Инициализируем мультиязычный модуль
+    LangMgr *lang_mgr;
+    lang_mgr = LangMgr::Init();
+    lang_mgr->setFolderPath("lang");
+    lang_mgr->setLang("en");
 
 	s_mgr = new SceneMgr();
 

@@ -1,5 +1,6 @@
 #include "MainConstants.h"
 #include "SceneGame.h"
+#include "LangMgr.h"
 #include "Debug.h"
 #include <iostream>
 
@@ -7,11 +8,23 @@
 SceneGame::SceneGame()
 {
     lives = 3; // Выставляем количество жизней
+    lang_mgr = LangMgr::Init();
     hero = new MainHeroMgr();
+
+    // Задаем параметры текста
+    
+    font_color = {0, 0, 255};
+
+    font_game_info = new ui::FontMgr();
+    font_game_info->setFontName("assets/fonts/XoloniumBold.ttf");
+    font_game_info->setFontSize(26);
+    font_game_info->setFontColor(font_color);
+    font_game_info->setLetterSizeInPX(20);
 }
 
 SceneGame::~SceneGame()
 {
+    delete font_game_info;
     delete hero;
     debug() << "SceneGame end" << std::endl;
 }
@@ -33,6 +46,9 @@ void SceneGame::render(SDL_Renderer *renderer)
         }
 
         hero->draw(renderer);
+
+        std::string lives_caption = lang_mgr->getPhrase("scene_lives") + ": " + std::to_string(lives);
+        font_game_info->paintText(renderer, lives_caption, SCREEN_HEIGHT - 30, 30, ui::fontAlign::right);
 
         SDL_RenderPresent(renderer);
     }

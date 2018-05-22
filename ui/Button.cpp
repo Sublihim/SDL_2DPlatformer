@@ -21,7 +21,7 @@ Button::Button()
 
     font_caption = FontMgr::create();//utils::create<FontMgr>();
     font_caption->setFontName("assets/fonts/XoloniumBold.ttf");
-    font_caption->setFontSize(10);
+    font_caption->setFontSize(30);
     font_caption->setFontColor(font_color);
     font_caption->setLetterSizeInPX(20);
 }

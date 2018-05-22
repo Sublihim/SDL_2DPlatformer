@@ -2,14 +2,20 @@
 #define GAMESCENE_H_INCLUDED
 
 #include <string>
+#include "ui/FontMgr.h"
 #include "Scene.h"
 #include "MainHeroMgr.h"
+
+class LangMgr;
 
 class SceneGame: public Scene
 {
 private:
     int lives;
     MainHeroMgr *hero;
+    ui::FontMgr *font_game_info;
+    SDL_Color font_color;
+    LangMgr *lang_mgr;
 public:
     SceneGame();
     ~SceneGame();

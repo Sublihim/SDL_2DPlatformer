@@ -1,13 +1,14 @@
 #include "SceneMenuPause.h"
 #include "Debug.h"
+#include "LangMgr.h"
 
 SceneMenuPause::SceneMenuPause()
 {
-    int menuPosition_x = 120;
-    int menuPosition_y = 100;
-
-    int btn_w = 400;
+    int btn_w = 500;
     int btn_h = 70;
+
+    int menuPosition_x = (SCREEN_WIDTH - btn_w) / 2;
+    int menuPosition_y = 100;
 
     // Фон меню паузы
     rect_backgrnd.x = 0;
@@ -16,18 +17,21 @@ SceneMenuPause::SceneMenuPause()
     rect_backgrnd.h = SCREEN_HEIGHT;
 
     // Задаем параметры кнопок
+    LangMgr *lang_mgr;
+    lang_mgr = LangMgr::Init();
+
     btn_continue = ui::Button::create();
-    btn_continue->setCaption("CONTINUE GAME");
+    btn_continue->setCaption(lang_mgr->getPhrase("menu_continue"));
     btn_continue->setPosition(menuPosition_x, menuPosition_y);
     btn_continue->setSize(btn_w, btn_h);
 
     btn_main_menu = ui::Button::create();
-    btn_main_menu->setCaption("MAIN MENU");
+    btn_main_menu->setCaption(lang_mgr->getPhrase("menu_main_menu"));
     btn_main_menu->setPosition(menuPosition_x, menuPosition_y + btn_h + 30);
     btn_main_menu->setSize(btn_w, btn_h);
 
     btn_exit = ui::Button::create();
-    btn_exit->setCaption("EXIT");
+    btn_exit->setCaption(lang_mgr->getPhrase("menu_exit"));
     btn_exit->setPosition(menuPosition_x, menuPosition_y + 2 * btn_h + 60);
     btn_exit->setSize(btn_w, btn_h);
 }
