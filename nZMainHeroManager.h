@@ -15,7 +15,6 @@ public:
     nZMainHeroMgr();
     ~nZMainHeroMgr();
     bool init(SDL_Renderer *renderer);
-    void setMoveStep(int step);
     void draw(SDL_Renderer *renderer);
     void draw(SDL_Renderer *renderer, const SDL_Rect& camera);
     bool checkCollisionWithGameObject(GameObject *g_obj);

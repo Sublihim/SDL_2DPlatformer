@@ -2,7 +2,8 @@
 #include "MainHero.h"
 
 nZMainHeroMgr::nZMainHeroMgr()
- : gameWidth(0), gameHeight(0)
+ : gameWidth(0)
+ , gameHeight(0)
 {
     g_obj = new MainHero();
     g_obj->setTextureRowAndFrame(1, 0);
@@ -19,21 +20,13 @@ nZMainHeroMgr::~nZMainHeroMgr()
 
 bool nZMainHeroMgr::init(SDL_Renderer *renderer)
 {
+    bool res = true;
     if(!g_obj->init(renderer))
     {
         errorText = g_obj->getErrorText();
-        return false;
+        res = false;
     }
-    else
-        return true;
-}
-
-
-void nZMainHeroMgr::setMoveStep(int step)
-{
-    if(step < 0)
-        step = 0;
-    hero_step = step;
+    return res;
 }
 
 
@@ -55,15 +48,18 @@ bool nZMainHeroMgr::checkCollisionWithGameObject(GameObject *g_obj)
     return false;
 }
 
+
 gameReaction nZMainHeroMgr::process_mouse_motion(Sint32 x, Sint32 y)
 {
     return gameReaction::gr_ignore;
 }
 
+
 gameReaction nZMainHeroMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_event)
 {
     return gameReaction::gr_ignore;
 }
+
 
 gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
@@ -105,6 +101,7 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 
     return gameReaction::gr_ignore;
 }
+
 
 SDL_Point nZMainHeroMgr::getPoint() const
 {
