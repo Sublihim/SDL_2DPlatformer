@@ -2,7 +2,6 @@
 #define MAINHEROMGR_H_INCLUDED
 
 #include "GameObjectMgr.h"
-#include "GravityPowerMgr.h"
 
 class MainHero;
 
@@ -10,8 +9,6 @@ class nZMainHeroMgr : public GameObjectMgr
 {
 private:
     int hero_step;
-    bool b_jumping;
-    GravityPowerMgr *gr_power_mgr;
     int gameWidth;
     int gameHeight;
 public:
