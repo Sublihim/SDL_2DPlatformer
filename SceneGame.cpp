@@ -46,7 +46,7 @@ void SceneGame::render(SDL_Renderer *renderer)
 
         hero->draw(renderer);
 
-        std::string lives_caption = lang_mgr->getPhrase("scene_lives") + ": " + std::to_string(lives);
+        static std::string lives_caption = lang_mgr->getPhrase("scene_lives") + ": " + std::to_string(lives);
         font_game_info->paintText(renderer, lives_caption, SCREEN_HEIGHT - 30, 30, ui::fontAlign::right);
 
         SDL_RenderPresent(renderer);
