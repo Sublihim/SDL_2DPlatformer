@@ -1,7 +1,7 @@
 #include "nZSceneGame.h"
 #include "MainConstants.h"
 #include "Debug.h"
-#include "MainHeroMgr.h"
+#include "nZMainHeroManager.h"
 #include "SimpleTextureMgr.h"
 #include "LangMgr.h"
 
@@ -11,7 +11,7 @@
 static const int LIVES_COUNT = 3;
 
 nZSceneGame::nZSceneGame()
-    : lives(LIVES_COUNT), hero(new MainHeroMgr()), bg(new SimpleTextureMgr())
+    : lives(LIVES_COUNT), hero(new nZMainHeroMgr()), bg(new SimpleTextureMgr())
 {
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
@@ -64,6 +64,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
         bg->render(renderer, 0, 0, &camera);
         hero->draw(renderer, camera);
 
+        //TODO переделать со строками
         LangMgr* lang_mgr = LangMgr::Init();
         static std::string lives_caption = lang_mgr->getPhrase("scene_lives") + ": " + std::to_string(lives);
         font_game_info->paintText(renderer, lives_caption, SCREEN_HEIGHT - 30, 30, ui::fontAlign::right);

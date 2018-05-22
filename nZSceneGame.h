@@ -5,14 +5,14 @@
 #include "Scene.h"
 #include "ui/FontMgr.h"
 
-class MainHeroMgr;
+class nZMainHeroMgr;
 class SimpleTextureMgr;
 
 class nZSceneGame: public Scene
 {
 private:
     int lives;
-    MainHeroMgr *hero;
+    nZMainHeroMgr *hero;
     SimpleTextureMgr* bg;
     SDL_Rect camera;
     ui::FontMgrPtr font_game_info;
