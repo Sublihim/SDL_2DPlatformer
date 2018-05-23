@@ -11,7 +11,9 @@
 static const int LIVES_COUNT = 3;
 
 nZSceneGame::nZSceneGame()
-    : lives(LIVES_COUNT), hero(new nZMainHeroMgr()), bg(new SimpleTextureMgr())
+    : lives(LIVES_COUNT)
+    , hero(new nZMainHeroMgr())
+    , bg(new SimpleTextureMgr())
 {
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 

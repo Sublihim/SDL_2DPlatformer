@@ -27,7 +27,6 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
     {
         SDL_error_msg = "SDL could not initialize! SDL_Error: " + std::string(SDL_GetError());
         return false;
-
     }
 	else
 	{

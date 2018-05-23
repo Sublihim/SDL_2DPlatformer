@@ -8,7 +8,8 @@ class MainHero;
 class nZMainHeroMgr : public GameObjectMgr
 {
 private:
-    int hero_step;
+    int hero_stepX;
+    int hero_stepY;
     int gameWidth;
     int gameHeight;
 public:
