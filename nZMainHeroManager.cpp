@@ -108,13 +108,10 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 SDL_Point nZMainHeroMgr::getPoint() const
 {
     SDL_Point res;
-    int x = g_obj->getPositionBeginX();
-    int y = g_obj->getPositionBeginY();
-    int w = g_obj->getObjectWidth();
-    int h = g_obj->getObjectHeight();
+    SDL_Rect gameZone = g_obj->getGameObjectZone();
 
-    res.x = (x + w / 2) - SCREEN_WIDTH / 2;
-    res.y = (y + h / 2) - SCREEN_HEIGHT / 2;
+    res.x = (gameZone.x + gameZone.w / 2) - SCREEN_WIDTH / 2;
+    res.y = (gameZone.y + gameZone.h / 2) - SCREEN_HEIGHT / 2;
 
     return res;
 }
