@@ -40,6 +40,29 @@ void MainHero::setTextureRowAndFrame(int row, int frame)
     curFrame = frame;
 }
 
+void MainHero::setDirectionLeft()
+{
+    setTextureRowAndFrame(2, 0);
+}
+
+
+void MainHero::setDirectionRight()
+{
+    setTextureRowAndFrame(1, 0);
+}
+
+
+void MainHero::setNoDirection()
+{
+    setTextureRowAndFrame(2, 1);
+}
+
+
+void MainHero::setDirectionUp()
+{
+    setTextureRowAndFrame(1, 1);
+}
+
 void MainHero::draw(SDL_Renderer *renderer)
 {
     //textureMgr->draw(textureName, g_obj_zone.x, g_obj_zone.y, g_obj_zone.w, g_obj_zone.h, renderer);

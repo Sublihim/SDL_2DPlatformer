@@ -15,9 +15,14 @@ private:
     int curFrame;
     TextureMgr *textureMgr;
     std::string textureName;
+    void setTextureRowAndFrame(int row, int frame);
 public:
     MainHero();
     ~MainHero();
+    void setDirectionLeft();
+    void setDirectionRight();
+    void setNoDirection();
+    void setDirectionUp();
     bool init(SDL_Renderer *renderer);
     void setTextureRowAndFrame(int row, int frame);
     void draw(SDL_Renderer *renderer);

@@ -66,15 +66,17 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
     int posX = g_obj->getPositionBeginX(),
         posY = g_obj->getPositionBeginY();
 
+    MainHero* mh = dynamic_cast<MainHero*>(g_obj);
+
     if(keycode == SDLK_LEFT)
     {
         posX -= hero_step;
-        g_obj->setTextureRowAndFrame(2, 0);
+        mh->setDirectionLeft();
     }
     else if(keycode == SDLK_RIGHT)
     {
         posX += hero_step;
-        g_obj->setTextureRowAndFrame(1, 0);
+        mh->setDirectionRight();
     }
     else if(keycode == SDLK_UP)
     {
