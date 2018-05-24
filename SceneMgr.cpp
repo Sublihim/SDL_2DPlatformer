@@ -125,3 +125,9 @@ gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
 
     return gr;
 }
+
+
+gameReaction SceneMgr::process_keyboard_keyup(SDL_Keycode keycode)
+{
+    return gameReaction::gr_ignore;
+}
