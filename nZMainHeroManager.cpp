@@ -70,32 +70,25 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 
     if(keycode == SDLK_LEFT)
     {
-        if (hero_stepX > 0)
-            hero_stepX = ~hero_stepX + 1;
+        posX -= hero_stepX;
         mh->setDirectionLeft();
     }
     else if(keycode == SDLK_RIGHT)
     {
-        if (hero_stepX < 0)
-            hero_stepX = ~hero_stepX + 1;
+        posX += hero_stepX;
         mh->setDirectionRight();
     }
     else if(keycode == SDLK_UP)
     {
-        if (hero_stepY > 0)
-            hero_stepY = ~hero_stepY + 1;
+        posY -= hero_stepY;
     }
     else if (keycode == SDLK_DOWN)
     {
-        if (hero_stepY < 0)
-            hero_stepY = ~hero_stepY + 1;
+        posY += hero_stepY;
     }
     else if(keycode == SDLK_SPACE)
     {
     }
-
-    posX += hero_stepX;
-    posY += hero_stepY;
 
     if (posX < 0)
         posX = 0;
