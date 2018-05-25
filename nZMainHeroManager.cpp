@@ -105,6 +105,11 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 }
 
 
+gameReaction nZMainHeroMgr::process_keyboard_keyup(SDL_Keycode keycode)
+{
+    return gr_ignore;
+}
+
 SDL_Point nZMainHeroMgr::getPoint() const
 {
     SDL_Point res;

@@ -14,3 +14,8 @@ void Scene::setFirstRenderState(bool first)
 {
     b_first_render = first;
 }
+
+gameReaction Scene::process_keyboard_keyup(SDL_Keycode keycode)
+{
+    return gr_ignore;
+}

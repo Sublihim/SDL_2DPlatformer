@@ -6,7 +6,9 @@
 #include "Debug.h"
 
 SimpleTextureMgr::SimpleTextureMgr()
-    : texture(nullptr), width(0), height(0)
+    : texture(nullptr)
+    , width(0)
+    , height(0)
 {
 }
 

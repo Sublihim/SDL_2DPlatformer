@@ -95,6 +95,7 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
     return gr;
 }
 
+
 gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
     gameReaction gr = gameReaction::gr_ignore;
@@ -121,7 +122,9 @@ gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
 
     }
     else
+    {
         gr = active->process_keyboard_keydown(keycode);
+    }
 
     return gr;
 }
@@ -129,5 +132,8 @@ gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
 
 gameReaction SceneMgr::process_keyboard_keyup(SDL_Keycode keycode)
 {
-    return gameReaction::gr_ignore;
+    gameReaction gr = gr_ignore;
+    if (keycode != SDLK_ESCAPE)
+        gr = active->process_keyboard_keyup(keycode);
+    return gr;
 }
