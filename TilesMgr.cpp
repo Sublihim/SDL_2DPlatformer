@@ -1,4 +1,4 @@
-#include "TilesMgr.h"
+п»ї#include "TilesMgr.h"
 
 
 TilesMgr::TilesMgr()
@@ -16,5 +16,5 @@ TilesMgr::~TilesMgr()
 
 void TilesMgr::init()
 {
-    // загрузить тайлы
+    // Р·Р°РіСЂСѓР·РёС‚СЊ С‚Р°Р№Р»С‹
 }
