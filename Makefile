@@ -88,9 +88,15 @@ DEP_RELEASE =
 OUT_RELEASE = bin/Release/$(EXEC_FILE_NAME)
 endif
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)$(PATH_DELIM)SDL_Game.o $(OBJDIR_DEBUG)$(PATH_DELIM)Scene.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneGame.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenu.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenuPause.o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)main.o $(OBJDIR_DEBUG)$(PATH_DELIM)Button.o $(OBJDIR_DEBUG)$(PATH_DELIM)FontMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObject.o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObjectMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHero.o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHeroMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)TextureMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)LangMgr.o $(OBJDIR_DEBUG)$(PATH_DELIM)Camera.o
+VPATH := ui
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)$(PATH_DELIM)SDL_Game.o $(OBJDIR_RELEASE)$(PATH_DELIM)Scene.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneGame.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenu.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenuPause.o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)main.o $(OBJDIR_RELEASE)$(PATH_DELIM)Button.o $(OBJDIR_RELEASE)$(PATH_DELIM)FontMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObject.o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObjectMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHero.o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHeroMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)TextureMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)LangMgr.o $(OBJDIR_RELEASE)$(PATH_DELIM)Camera.o
+SOURCE_PATHS := *.cpp  ui$(PATH_DELIM)*.cpp
+SOURCE_FILES := $(wildcard $(SOURCE_PATHS))
+OBJ_FILES := $(patsubst %.cpp, %.o, $(notdir $(SOURCE_FILES)))
+
+OBJ_DEBUG := $(addprefix $(OBJDIR_DEBUG)$(PATH_DELIM), $(OBJ_FILES))
+
+OBJ_RELEASE := $(addprefix $(OBJDIR_RELEASE)$(PATH_DELIM), $(OBJ_FILES))
 
 all: debug release
 
@@ -114,62 +120,17 @@ else
 	cp -rf lang bin/Debug
 endif
 
-debug: before_debug out_debug after_debug
+debug: print before_debug out_debug after_debug
+
+
+print:
+	@echo $(OBJ_DEBUG)
 
 out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG)  $(LDFLAGS_DEBUG) $(LIB_DEBUG)
 
-$(OBJDIR_DEBUG)$(PATH_DELIM)SDL_Game.o: SDL_Game.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c SDL_Game.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)SDL_Game.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)Scene.o: Scene.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Scene.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)Scene.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)SceneGame.o: SceneGame.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c SceneGame.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneGame.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenu.o: SceneMenu.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c SceneMenu.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenu.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenuPause.o: SceneMenuPause.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c SceneMenuPause.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMenuPause.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)SceneMgr.o: SceneMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c SceneMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)SceneMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)main.o: main.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c main.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)main.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)Button.o: ui/Button.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ui/Button.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)Button.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)FontMgr.o: ui/FontMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ui/FontMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)FontMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)GameObject.o: GameObject.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c GameObject.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObject.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)GameObjectMgr.o: GameObjectMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c GameObjectMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)GameObjectMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)MainHero.o: MainHero.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c MainHero.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHero.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)MainHeroMgr.o: MainHeroMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c MainHeroMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)MainHeroMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)TextureMgr.o: TextureMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c TextureMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)TextureMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o: GravityPowerMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c GravityPowerMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)GravityPowerMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)LangMgr.o: LangMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c LangMgr.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)LangMgr.o
-
-$(OBJDIR_DEBUG)$(PATH_DELIM)Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Camera.cpp -o $(OBJDIR_DEBUG)$(PATH_DELIM)Camera.o
-
+$(OBJDIR_DEBUG)$(PATH_DELIM)%.o: %.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c $^ -o $@
 
 clean_debug:
 ifeq ($(OS),Windows_NT)
@@ -205,56 +166,8 @@ release: before_release out_release after_release
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE)  $(LDFLAGS_RELEASE) $(LIB_RELEASE)
 
-$(OBJDIR_RELEASE)$(PATH_DELIM)SDL_Game.o: SDL_Game.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c SDL_Game.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)SDL_Game.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)Scene.o: Scene.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Scene.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)Scene.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)SceneGame.o: SceneGame.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c SceneGame.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneGame.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenu.o: SceneMenu.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c SceneMenu.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenu.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenuPause.o: SceneMenuPause.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c SceneMenuPause.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMenuPause.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)SceneMgr.o: SceneMgr.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c SceneMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)SceneMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)main.o: main.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c main.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)main.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)Button.o: ui/Button.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ui/Button.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)Button.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)FontMgr.o: ui/FontMgr.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ui/FontMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)FontMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)GameObject.o: GameObject.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c GameObject.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObject.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)GameObjectMgr.o: GameObjectMgr.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c GameObjectMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)GameObjectMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)MainHero.o: MainHero.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c MainHero.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHero.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)MainHeroMgr.o: MainHeroMgr.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c MainHeroMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)MainHeroMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)TextureMgr.o: TextureMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_RELEASE) -c TextureMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)TextureMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o: GravityPowerMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_RELEASE) -c GravityPowerMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)GravityPowerMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)LangMgr.o: LangMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_RELEASE) -c LangMgr.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)LangMgr.o
-
-$(OBJDIR_RELEASE)$(PATH_DELIM)Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_RELEASE) -c Camera.cpp -o $(OBJDIR_RELEASE)$(PATH_DELIM)Camera.o
+$(OBJDIR_RELEASE)$(PATH_DELIM)%.o: %.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c $^ -o $@
 
 clean_release:
 ifeq ($(OS),Windows_NT)
