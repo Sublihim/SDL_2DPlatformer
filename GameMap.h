@@ -1,4 +1,6 @@
-﻿
+﻿#ifndef GAMEMAP_INCLUDE
+#define GAMEMAP_INCLUDE
+
 // класс игровой карты
 class GameMap
 {
@@ -9,3 +11,5 @@ public:
 private:
 
 };
+
+#endif // GAMEMAP_INCLUDE
