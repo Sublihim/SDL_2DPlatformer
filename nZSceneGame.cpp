@@ -76,6 +76,15 @@ inline void nZSceneGame::moveCamera()
         camera.y = bgHeight - camera.h;
 }
 
+
+inline void nZSceneGame::outScore(SDL_Renderer *renderer)
+{
+    static std::string scenePhrase = LangMgr::Init()->getPhrase("scene_lives");
+    std::string lives_caption = scenePhrase + ": " + std::to_string(lives);
+    font_game_info->paintText(renderer, lives_caption, SCREEN_HEIGHT - 30, 30, ui::fontAlign::right);
+}
+
+
 void nZSceneGame::render(SDL_Renderer *renderer)
 {
     if(!b_paused)
@@ -90,9 +99,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
         hero->draw(renderer, camera);
 
         //TODO переделать со строками
-        LangMgr* lang_mgr = LangMgr::Init();
-        static std::string lives_caption = lang_mgr->getPhrase("scene_lives") + ": " + std::to_string(lives);
-        font_game_info->paintText(renderer, lives_caption, SCREEN_HEIGHT - 30, 30, ui::fontAlign::right);
+        outScore(renderer);
 
         SDL_RenderPresent(renderer);
     }

@@ -23,6 +23,7 @@ private:
 
     inline void firstRender(SDL_Renderer *renderer);
     inline void moveCamera();
+    inline void outScore(SDL_Renderer *renderer);
 public:
     nZSceneGame();
     ~nZSceneGame();
