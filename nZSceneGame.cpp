@@ -4,6 +4,7 @@
 #include "nZMainHeroManager.h"
 #include "SimpleTextureMgr.h"
 #include "LangMgr.h"
+#include "TilesMgr.h"
 
 #include <iostream>
 
@@ -14,6 +15,7 @@ nZSceneGame::nZSceneGame()
     : lives(LIVES_COUNT)
     , hero(new nZMainHeroMgr())
     , bg(new SimpleTextureMgr())
+    , tilesMgr(new TilesMgr())
 {
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
@@ -46,6 +48,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
                 debug() << "Error load bg" << std::endl;
 
             hero->setGameBounds(bg->getWidth(), bg->getHeight());
+            tilesMgr->init(renderer);
         }
 
         SDL_Point pointHero = hero->getPoint();

@@ -7,6 +7,7 @@
 
 class nZMainHeroMgr;
 class SimpleTextureMgr;
+class TilesMgr;
 
 class nZSceneGame: public Scene
 {
@@ -14,6 +15,7 @@ private:
     int lives;
     nZMainHeroMgr *hero;
     SimpleTextureMgr* bg;
+    TilesMgr* tilesMgr;
     SDL_Rect camera;
     ui::FontMgrPtr font_game_info;
 public:
