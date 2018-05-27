@@ -92,6 +92,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
         if(b_first_render)
             firstRender(renderer);
 
+        move();
         moveCamera();
 
         bg->render(renderer, 0, 0, &camera);
@@ -103,6 +104,11 @@ void nZSceneGame::render(SDL_Renderer *renderer)
 
         SDL_RenderPresent(renderer);
     }
+}
+
+void nZSceneGame::move()
+{
+    hero->move();
 }
 
 void nZSceneGame::render_clean(SDL_Renderer *renderer)

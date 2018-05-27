@@ -8,10 +8,14 @@ class MainHero;
 class nZMainHeroMgr : public GameObjectMgr
 {
 private:
+    enum StateHero {STOP, MOVE, FOLLOW, JUMP};
     int hero_stepX;
     int hero_stepY;
     int gameWidth;
     int gameHeight;
+    int newPositionX;
+    int newPositionY;
+    StateHero state;
 public:
     nZMainHeroMgr();
     ~nZMainHeroMgr();
@@ -21,6 +25,7 @@ public:
     bool checkCollisionWithGameObject(GameObject *g_obj);
     SDL_Point getPoint() const;
     void setGameBounds(int width, int height);
+    void move();
     gameReaction process_mouse_motion(Sint32 x, Sint32 y);
     gameReaction process_mouse_button_event(SDL_MouseButtonEvent m_btn_event);
     gameReaction process_keyboard_keydown(SDL_Keycode keycode);

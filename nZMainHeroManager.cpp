@@ -4,6 +4,9 @@
 nZMainHeroMgr::nZMainHeroMgr()
  : gameWidth(0)
  , gameHeight(0)
+ , newPositionX(0)
+ , newPositionY(0)
+  , state(STOP)
 {
     g_obj = new MainHero();
     dynamic_cast<MainHero*>(g_obj)->setDirectionRight();
@@ -63,47 +66,60 @@ gameReaction nZMainHeroMgr::process_mouse_button_event(SDL_MouseButtonEvent m_bt
 
 gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
-    int posX = g_obj->getPositionBeginX(),
-        posY = g_obj->getPositionBeginY();
+    if (state != STOP)
+        return gameReaction::gr_ignore;
+
+    int posX = g_obj->getPositionBeginX();
+        //posY = g_obj->getPositionBeginY();
 
     MainHero* mh = dynamic_cast<MainHero*>(g_obj);
 
     if(keycode == SDLK_LEFT)
     {
-        posX -= hero_stepX;
+        newPositionX = posX - hero_stepX;
         mh->setDirectionLeft();
     }
     else if(keycode == SDLK_RIGHT)
     {
-        posX += hero_stepX;
+        newPositionX = posX + hero_stepX;
         mh->setDirectionRight();
     }
-    else if(keycode == SDLK_UP)
-    {
-        posY -= hero_stepY;
-    }
-    else if (keycode == SDLK_DOWN)
-    {
-        posY += hero_stepY;
-    }
-    else if(keycode == SDLK_SPACE)
-    {
-    }
+    state = MOVE;
+    // else if(keycode == SDLK_UP)
+    // {
+    //     posY -= hero_stepY;
+    // }
+    // else if (keycode == SDLK_DOWN)
+    // {
+    //     posY += hero_stepY;
+    // }
+    // else if(keycode == SDLK_SPACE)
+    // {
+    // }
 
-    if (posX < 0)
-        posX = 0;
-    if (posX + g_obj->getObjectWidth() > gameWidth)
-        posX -= hero_stepX;
-    if (posY < 0)
-        posY = 0;
-    if (posY + g_obj->getObjectHeight() > gameHeight)
-        posY -= hero_stepY;
-
-    g_obj->setPosition(posX, posY);
 
     return gameReaction::gr_ignore;
 }
 
+
+void nZMainHeroMgr::move()
+{
+    if (state == MOVE)
+    {
+        newPositionY = g_obj->getPositionBeginY();
+        if (newPositionX < 0)
+            newPositionX = 0;
+        if (newPositionX + g_obj->getObjectWidth() > gameWidth)
+            newPositionX -= hero_stepX;
+        if (newPositionY < 0)
+            newPositionY = 0;
+        if (newPositionY + g_obj->getObjectHeight() > gameHeight)
+            newPositionY -= hero_stepY;
+
+        g_obj->setPosition(newPositionX, newPositionY);
+        state = STOP;
+    }
+}
 
 gameReaction nZMainHeroMgr::process_keyboard_keyup(SDL_Keycode keycode)
 {
