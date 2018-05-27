@@ -20,6 +20,9 @@ private:
     GameMap* gameMap;
     SDL_Rect camera;
     ui::FontMgrPtr font_game_info;
+
+    inline void firstRender(SDL_Renderer *renderer);
+    inline void moveCamera();
 public:
     nZSceneGame();
     ~nZSceneGame();

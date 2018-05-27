@@ -35,40 +35,55 @@ nZSceneGame::~nZSceneGame()
     debug() << "nZSceneGame end" << std::endl;
 }
 
+
+inline void nZSceneGame::firstRender(SDL_Renderer *renderer)
+{
+    setFirstRenderState(false);
+
+    if(!hero->init(renderer))
+        std::cout << "Error: " << hero->getErrorText() << std::endl;
+
+    if(!bg->load(renderer, "assets/BG.png"))
+        debug() << "Error load bg" << std::endl;
+
+    int bgWidth = bg->getWidth();
+    int bgHeight = bg->getHeight();
+
+    hero->setGameBounds(bgWidth, bgHeight);
+    tilesMgr->init(renderer);
+    gameMap->loadMap();
+    gameMap->setGameBounds(bgWidth, bgHeight);
+}
+
+inline void nZSceneGame::moveCamera()
+{
+    SDL_Point pointHero = hero->getPoint();
+
+    camera.x = pointHero.x;
+    camera.y = pointHero.y;
+
+    int bgWidth = bg->getWidth();
+    int bgHeight = bg->getHeight();
+
+    if( camera.x < 0 )
+        camera.x = 0;
+    else if( camera.x > bgWidth - camera.w )
+        camera.x = bgWidth - camera.w;
+
+    if( camera.y < 0 )
+        camera.y = 0;
+    else if( camera.y > bgHeight - camera.h )
+        camera.y = bgHeight - camera.h;
+}
+
 void nZSceneGame::render(SDL_Renderer *renderer)
 {
     if(!b_paused)
     {
         if(b_first_render)
-        {
-            setFirstRenderState(false);
+            firstRender(renderer);
 
-            if(!hero->init(renderer))
-                std::cout << "Error: " << hero->getErrorText() << std::endl;
-
-            if(!bg->load(renderer, "assets/BG.png"))
-                debug() << "Error load bg" << std::endl;
-
-            hero->setGameBounds(bg->getWidth(), bg->getHeight());
-            tilesMgr->init(renderer);
-            gameMap->loadMap();
-            gameMap->setGameBounds(bg->getWidth(), bg->getHeight());
-        }
-
-        SDL_Point pointHero = hero->getPoint();
-
-        camera.x = pointHero.x;
-        camera.y = pointHero.y;
-
-        if( camera.x < 0 )
-            camera.x = 0;
-        else if( camera.x > bg->getWidth() - camera.w )
-            camera.x = bg->getWidth() - camera.w;
-
-        if( camera.y < 0 )
-            camera.y = 0;
-        else if( camera.y > bg->getHeight() - camera.h )
-            camera.y = bg->getHeight() - camera.h;
+        moveCamera();
 
         bg->render(renderer, 0, 0, &camera);
         gameMap->renderMap(renderer, tilesMgr, &camera);
