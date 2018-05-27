@@ -5,6 +5,7 @@
 #include "SimpleTextureMgr.h"
 #include "LangMgr.h"
 #include "TilesMgr.h"
+#include "GameMap.h"
 
 #include <iostream>
 
@@ -16,6 +17,7 @@ nZSceneGame::nZSceneGame()
     , hero(new nZMainHeroMgr())
     , bg(new SimpleTextureMgr())
     , tilesMgr(new TilesMgr())
+    , gameMap(new GameMap())
 {
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
@@ -49,6 +51,8 @@ void nZSceneGame::render(SDL_Renderer *renderer)
 
             hero->setGameBounds(bg->getWidth(), bg->getHeight());
             tilesMgr->init(renderer);
+            gameMap->loadMap();
+            gameMap->setGameBounds(bg->getWidth(), bg->getHeight());
         }
 
         SDL_Point pointHero = hero->getPoint();
@@ -67,6 +71,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
             camera.y = bg->getHeight() - camera.h;
 
         bg->render(renderer, 0, 0, &camera);
+        gameMap->renderMap(renderer, tilesMgr, &camera);
         hero->draw(renderer, camera);
 
         //TODO переделать со строками
