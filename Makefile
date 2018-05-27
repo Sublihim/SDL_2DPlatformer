@@ -49,7 +49,7 @@ LIB_DEBUG = $(LIB)
 ifeq ($(OS),Windows_NT)
 LDFLAGS_DEBUG = $(LDFLAGS) $(SDL2_LIB_PARAM) -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
 else
-LDFLAGS_DEBUG = $(LDFLAGS) -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+LDFLAGS_DEBUG = $(LDFLAGS) -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image -lstdc++fs
 endif
 
 ifeq ($(OS),Windows_NT)
