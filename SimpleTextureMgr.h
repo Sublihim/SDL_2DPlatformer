@@ -1,3 +1,5 @@
+#ifndef SIMPLETEXTUREMGR_INCLUDE
+#define SIMPLETEXTUREMGR_INCLUDE
 
 #include <string>
 #include <SDL2/SDL_render.h>
@@ -27,3 +29,5 @@ private:
     int width;
     int height;
 };
+
+#endif // SIMPLETEXTUREMGR_INCLUDE
