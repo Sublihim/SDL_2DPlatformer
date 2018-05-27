@@ -75,7 +75,7 @@ LIB_RELEASE = $(LIB)
 ifeq ($(OS),Windows_NT)
 LDFLAGS_RELEASE = $(LDFLAGS) $(SDL2_LIB_PARAM) -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
 else
-LDFLAGS_RELEASE = $(LDFLAGS) -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+LDFLAGS_RELEASE = $(LDFLAGS) -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image -lstdc++fs
 endif
 
 ifeq ($(OS),Windows_NT)
