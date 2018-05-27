@@ -17,9 +17,9 @@ public:
     bool load(SDL_Renderer* renderer, const std::string& pathToTexture);
     void free();
     void render(SDL_Renderer* renderer, int x, int y,
-                SDL_Rect* clip = NULL,
+                SDL_Rect* clip = nullptr,
                 double angle = 0.0,
-                SDL_Point* center = NULL,
+                SDL_Point* center = nullptr,
                 SDL_RendererFlip flip = SDL_FLIP_NONE);
     int getWidth() const;
     int getHeight() const;
