@@ -20,19 +20,27 @@ nZSceneGame::nZSceneGame()
     , gameMap(new GameMap())
 {
     camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
-
-    font_game_info = ui::FontMgr::create();
-    font_game_info->setFontName("assets/fonts/XoloniumBold.ttf");
-    font_game_info->setFontSize(26);
-    font_game_info->setFontColor({0xa8, 0x2f, 0x14});
-    font_game_info->setLetterSizeInPX(20);
+    initFont();
 }
+
 
 nZSceneGame::~nZSceneGame()
 {
     delete hero;
     delete bg;
+    delete tilesMgr;
+    delete gameMap;
     debug() << "nZSceneGame end" << std::endl;
+}
+
+
+inline void nZSceneGame::initFont()
+{
+    font_game_info = ui::FontMgr::create();
+    font_game_info->setFontName("assets/fonts/XoloniumBold.ttf");
+    font_game_info->setFontSize(26);
+    font_game_info->setFontColor({0xa8, 0x2f, 0x14});
+    font_game_info->setLetterSizeInPX(20);
 }
 
 
@@ -55,9 +63,12 @@ inline void nZSceneGame::firstRender(SDL_Renderer *renderer)
     gameMap->setGameBounds(bgWidth, bgHeight);
 }
 
+
 inline void nZSceneGame::moveCamera()
 {
     SDL_Point pointHero = hero->getPoint();
+
+    debug() << "pointH: x= " << pointHero.x << " y= " << pointHero.y << std::endl;
 
     camera.x = pointHero.x;
     camera.y = pointHero.y;
@@ -74,6 +85,8 @@ inline void nZSceneGame::moveCamera()
         camera.y = 0;
     else if( camera.y > bgHeight - camera.h )
         camera.y = bgHeight - camera.h;
+
+    debug() << "camera: x= " << camera.x << " y= " << camera.y << std::endl;
 }
 
 
@@ -108,7 +121,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
 
 void nZSceneGame::move()
 {
-    hero->move();
+    hero->move(&camera, gameMap, tilesMgr);
 }
 
 void nZSceneGame::render_clean(SDL_Renderer *renderer)

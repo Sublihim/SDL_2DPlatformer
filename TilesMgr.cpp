@@ -69,7 +69,7 @@ void TilesMgr::init(SDL_Renderer* renderer)
     }
 }
 
-SimpleTextureMgr* TilesMgr::getTextureByType(TypeTile typeTile)
+SimpleTextureMgr* TilesMgr::getTextureByType(TypeTile typeTile) const
 {
     SimpleTextureMgr* res = nullptr;
     const auto& it = m_tileMap.find(typeTile);

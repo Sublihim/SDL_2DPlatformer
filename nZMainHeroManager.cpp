@@ -1,5 +1,7 @@
 #include "nZMainHeroManager.h"
 #include "MainHero.h"
+#include "GameMap.h"
+#include "TilesMgr.h"
 
 nZMainHeroMgr::nZMainHeroMgr()
  : gameWidth(0)
@@ -96,13 +98,11 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
     // else if(keycode == SDLK_SPACE)
     // {
     // }
-
-
     return gameReaction::gr_ignore;
 }
 
 
-void nZMainHeroMgr::move()
+void nZMainHeroMgr::move(const SDL_Rect* camera, const GameMap* gameMap, const TilesMgr* tilesMgr)
 {
     if (state == MOVE)
     {
@@ -116,6 +116,23 @@ void nZMainHeroMgr::move()
         if (newPositionY + g_obj->getObjectHeight() > gameHeight)
             newPositionY -= hero_stepY;
 
+        g_obj->setPosition(newPositionX, newPositionY);
+        state = STOP;
+    }
+    else if (state == STOP || state == FOLLOW)
+    {
+        //хорошо бы проверить не падаем ли мы вниз и если да, то переместить
+        if(!gameMap->isCollisionBottom(g_obj->getGameObjectZone(), camera, tilesMgr))
+        {
+            newPositionY = g_obj->getPositionBeginY();
+            newPositionY += hero_stepY;
+            state = FOLLOW;
+            g_obj->setPosition(newPositionX, newPositionY);
+            return;
+        }
+        int correctY = gameMap->getCorrectY();
+        newPositionY = g_obj->getPositionBeginY();
+        newPositionY += correctY;
         g_obj->setPosition(newPositionX, newPositionY);
         state = STOP;
     }

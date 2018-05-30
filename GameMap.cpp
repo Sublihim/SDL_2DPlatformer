@@ -1,9 +1,10 @@
-﻿
-#include "GameMap.h"
+﻿#include "GameMap.h"
+#include "TilesMgr.h"
 
 GameMap::GameMap()
     : gameWidth(0)
     , gameHeight(0)
+    , correctY(0)
 {
 }
 
@@ -15,22 +16,22 @@ GameMap::~GameMap()
 void GameMap::loadMap()
 {
     // пока не продумали формат генерируем руками
-    map.push_back({TILE_02, {128 * 0,128}});
-    map.push_back({TILE_02, {128 * 1,128}});
-    map.push_back({TILE_02, {128 * 2,128}});
-    map.push_back({TILE_02, {128 * 3,128}});
-    map.push_back({TILE_02, {128 * 4,128}});
-    map.push_back({TILE_02, {128 * 5,128}});
-    map.push_back({TILE_02, {128 * 6,128}});
-    map.push_back({TILE_02, {128 * 7,128}});
-    map.push_back({TILE_02, {128 * 8,128}});
-    map.push_back({TILE_02, {128 * 9,128}});
-    map.push_back({TILE_02, {128 * 10,128}});
-    map.push_back({TILE_02, {128 * 11,128}});
-    map.push_back({TILE_02, {128 * 12,128}});
-    map.push_back({TILE_02, {128 * 13,128}});
-    map.push_back({TILE_02, {128 * 14,128}});
-    map.push_back({TILE_02, {128 * 15,128}});
+    map.push_back({TILE_02, {128 * 0,  128}});
+    map.push_back({TILE_02, {128 * 1,  128}});
+    map.push_back({TILE_02, {128 * 2,  128}});
+    map.push_back({TILE_02, {128 * 3,  128}});
+    map.push_back({TILE_02, {128 * 4,  128}});
+    map.push_back({TILE_02, {128 * 5,  128}});
+    map.push_back({TILE_02, {128 * 6,  128}});
+    map.push_back({TILE_02, {128 * 7,  128}});
+    map.push_back({TILE_02, {128 * 8,  128}});
+    map.push_back({TILE_02, {128 * 9,  128}});
+    map.push_back({TILE_02, {128 * 10, 128}});
+    map.push_back({TILE_02, {128 * 11, 128}});
+    map.push_back({TILE_02, {128 * 12, 128}});
+    map.push_back({TILE_02, {128 * 13, 128}});
+    map.push_back({TILE_02, {128 * 14, 128}});
+    map.push_back({TILE_02, {128 * 15, 128}});
 }
 
 void GameMap::renderMap(SDL_Renderer* renderer, TilesMgr* tilesMgr, SDL_Rect* camera)
@@ -39,8 +40,12 @@ void GameMap::renderMap(SDL_Renderer* renderer, TilesMgr* tilesMgr, SDL_Rect* ca
     {
         auto texture = tilesMgr->getTextureByType(item.tile);
         const auto& point = item.point;
+
         int x = point.x - camera->x;
+        // коррекция y на gameHeight нужна, для отображения координат,
+        // т.к. "карта задана" для координат с ТО внизу слева
         int y = gameHeight - point.y - camera->y;
+
         texture->render(renderer, x, y);
     }
 }
@@ -49,4 +54,43 @@ void GameMap::setGameBounds(int width, int height)
 {
     gameWidth = width;
     gameHeight = height;
+}
+
+
+bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const SDL_Rect* camera, const TilesMgr* tilesMgr) const
+{
+    bool res = false;
+    for(const auto& item : map)
+    {
+        auto texture = tilesMgr->getTextureByType(item.tile);
+        const auto& point = item.point;
+        SDL_Rect rectMapObj = {
+            point.x,
+            gameHeight - point.y, //переходим к y координате
+            texture->getWidth(),
+            texture->getHeight()
+        };
+
+        SDL_Rect heroRect = {
+            sdlRect.x,// + camera->x,
+            sdlRect.y,// + camera->y,
+            sdlRect.w,
+            sdlRect.h
+        };
+        auto result = SDL_HasIntersection(&heroRect, &rectMapObj);
+        if (result == SDL_TRUE)
+        {
+            res = true;
+            correctY = (rectMapObj.y) - (heroRect.y + heroRect.h);
+            break;
+        }
+    }
+    return res;
+}
+
+int GameMap::getCorrectY() const
+{
+    int res = correctY;
+    correctY = 0;
+    return res;
 }

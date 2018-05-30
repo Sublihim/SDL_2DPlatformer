@@ -2,10 +2,12 @@
 #define GAMEMAP_INCLUDE
 
 #include "TilesMgr.h"
+#include "IGameMap.h"
 #include <vector>
 
+class TilesMgr;
 // класс игровой карты
-class GameMap
+class GameMap : public IGameMap
 {
     struct MapObject
     {
@@ -20,10 +22,13 @@ public:
     void renderMap(SDL_Renderer* renderer, TilesMgr* tilesMgr, SDL_Rect* camera);
     void loadMap();
     void setGameBounds(int width, int height);
+    bool isCollisionBottom(const SDL_Rect& sdlRect, const SDL_Rect* camera, const TilesMgr* tilesMgr) const;
+    int getCorrectY() const;
 private:
     VMap map;
     int gameWidth;
     int gameHeight;
+    mutable int correctY;
 };
 
 #endif // GAMEMAP_INCLUDE

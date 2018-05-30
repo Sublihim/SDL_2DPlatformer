@@ -21,6 +21,7 @@ private:
     SDL_Rect camera;
     ui::FontMgrPtr font_game_info;
 
+    inline void initFont();
     inline void firstRender(SDL_Renderer *renderer);
     inline void moveCamera();
     inline void outScore(SDL_Renderer *renderer);

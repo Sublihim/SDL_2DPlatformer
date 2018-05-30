@@ -21,7 +21,7 @@ public:
     ~TilesMgr();
 
     void init(SDL_Renderer* renderer);
-    SimpleTextureMgr* getTextureByType(TypeTile typeTile);
+    SimpleTextureMgr* getTextureByType(TypeTile typeTile) const;
 private:
     TileMap m_tileMap;
 
