@@ -102,7 +102,7 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 }
 
 
-void nZMainHeroMgr::move(const SDL_Rect* camera, const GameMap* gameMap, const TilesMgr* tilesMgr)
+void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
 {
     if (state == MOVE)
     {
@@ -122,7 +122,7 @@ void nZMainHeroMgr::move(const SDL_Rect* camera, const GameMap* gameMap, const T
     else if (state == STOP || state == FOLLOW)
     {
         //хорошо бы проверить не падаем ли мы вниз и если да, то переместить
-        if(!gameMap->isCollisionBottom(g_obj->getGameObjectZone(), camera, tilesMgr))
+        if(!gameMap->isCollisionBottom(g_obj->getGameObjectZone(), tilesMgr))
         {
             newPositionY = g_obj->getPositionBeginY();
             newPositionY += hero_stepY;

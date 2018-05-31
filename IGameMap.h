@@ -7,7 +7,7 @@ class TilesMgr;
 // Интерфейс общий для всех игровых карт
 struct IGameMap
 {
-    virtual bool isCollisionBottom(const SDL_Rect& sdlRect, const SDL_Rect* camera, const TilesMgr* tilesMgr) const = 0;
+    virtual bool isCollisionBottom(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const = 0;
     virtual ~IGameMap() {}
 };
 

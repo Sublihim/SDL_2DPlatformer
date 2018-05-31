@@ -57,7 +57,7 @@ void GameMap::setGameBounds(int width, int height)
 }
 
 
-bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const SDL_Rect* camera, const TilesMgr* tilesMgr) const
+bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const
 {
     bool res = false;
     for(const auto& item : map)
@@ -71,17 +71,11 @@ bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const SDL_Rect* camera,
             texture->getHeight()
         };
 
-        SDL_Rect heroRect = {
-            sdlRect.x,// + camera->x,
-            sdlRect.y,// + camera->y,
-            sdlRect.w,
-            sdlRect.h
-        };
-        auto result = SDL_HasIntersection(&heroRect, &rectMapObj);
+        auto result = SDL_HasIntersection(&sdlRect, &rectMapObj);
         if (result == SDL_TRUE)
         {
             res = true;
-            correctY = (rectMapObj.y) - (heroRect.y + heroRect.h);
+            correctY = (rectMapObj.y) - (sdlRect.y + sdlRect.h);
             break;
         }
     }

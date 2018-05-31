@@ -121,7 +121,7 @@ void nZSceneGame::render(SDL_Renderer *renderer)
 
 void nZSceneGame::move()
 {
-    hero->move(&camera, gameMap, tilesMgr);
+    hero->move(gameMap, tilesMgr);
 }
 
 void nZSceneGame::render_clean(SDL_Renderer *renderer)
