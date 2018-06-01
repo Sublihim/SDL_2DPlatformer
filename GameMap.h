@@ -23,6 +23,7 @@ public:
     void loadMap();
     void setGameBounds(int width, int height);
     bool isCollisionBottom(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const;
+    int getDistanceFollow(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const;
     int getCorrectY() const;
 private:
     VMap map;

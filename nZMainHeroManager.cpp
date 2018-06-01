@@ -122,18 +122,18 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
     else if (state == STOP || state == FOLLOW)
     {
         //хорошо бы проверить не падаем ли мы вниз и если да, то переместить
-        if(!gameMap->isCollisionBottom(g_obj->getGameObjectZone(), tilesMgr))
+        int distance = gameMap->getDistanceFollow(g_obj->getGameObjectZone(), tilesMgr);
+        if (distance >= 0)
         {
             newPositionY = g_obj->getPositionBeginY();
-            newPositionY += hero_stepY;
+            if (distance >= hero_stepY)
+                newPositionY += hero_stepY;
+            else if (distance > 0)
+                newPositionY += distance;
+
             state = FOLLOW;
             g_obj->setPosition(newPositionX, newPositionY);
-            return;
         }
-        int correctY = gameMap->getCorrectY();
-        newPositionY = g_obj->getPositionBeginY();
-        newPositionY += correctY;
-        g_obj->setPosition(newPositionX, newPositionY);
         state = STOP;
     }
 }

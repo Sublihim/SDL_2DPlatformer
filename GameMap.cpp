@@ -1,5 +1,6 @@
 ﻿#include "GameMap.h"
 #include "TilesMgr.h"
+#include "algorithm"
 
 GameMap::GameMap()
     : gameWidth(0)
@@ -80,6 +81,26 @@ bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const TilesMgr* tilesMg
         }
     }
     return res;
+}
+
+int GameMap::getDistanceFollow(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const
+{
+    int distance = -1;
+    for(const auto& item : map)
+    {
+        auto texture = tilesMgr->getTextureByType(item.tile);
+        const auto& point = item.point;
+        int tileRight = point.x + texture->getWidth();
+        int objRight = sdlRect.x + sdlRect.y;
+        bool inIntersect = !((sdlRect.x < point.x && objRight < point.x) ||
+                            (sdlRect.x > tileRight && objRight > tileRight));
+        if (inIntersect)
+        {
+            int newDistance = (gameHeight - point.y - (sdlRect.y + sdlRect.h));
+            distance = (distance < 0) ? newDistance : std::min(distance, newDistance);
+        }
+    }
+    return distance;
 }
 
 int GameMap::getCorrectY() const
