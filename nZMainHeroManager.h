@@ -22,6 +22,7 @@ private:
 
     void processFollow(int distance);
     void checkBoundaryPosition();
+    void processJump();
 public:
     nZMainHeroMgr();
     ~nZMainHeroMgr();

@@ -115,20 +115,25 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
     }
     else if (state == JUMP)
     {
-        if (jumpCounter++ < 5)
-        {
-            newPositionY = g_obj->getPositionBeginY();
-            newPositionY -= hero_stepY;
-            g_obj->setPosition(newPositionX, newPositionY);
-        }
-        else
-        {
-            jumpCounter = 0;
-            state = STOP;
-        }
+        processJump();
     }
 }
 
+
+void nZMainHeroMgr::processJump()
+{
+    if (jumpCounter++ < 5)
+    {
+        newPositionY = g_obj->getPositionBeginY();
+        newPositionY -= hero_stepY;
+        g_obj->setPosition(newPositionX, newPositionY);
+    }
+    else
+    {
+        jumpCounter = 0;
+        state = STOP;
+    }
+}
 
 void nZMainHeroMgr::checkBoundaryPosition()
 {
