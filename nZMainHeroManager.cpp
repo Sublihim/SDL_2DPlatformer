@@ -69,10 +69,8 @@ gameReaction nZMainHeroMgr::process_mouse_button_event(SDL_MouseButtonEvent m_bt
 
 gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
-    if (state != STOP)// && state != JUMP)
+    if (state != STOP)
         return gameReaction::gr_ignore;
-
-    //!(state == STOP || state == JUMP)
 
     int posX = g_obj->getPositionBeginX();
         //posY = g_obj->getPositionBeginY();
@@ -96,14 +94,6 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
         if (state != FOLLOW)
             state = JUMP;
     }
-    // else if(keycode == SDLK_UP)
-    // {
-    //     posY -= hero_stepY;
-    // }
-    // else if (keycode == SDLK_DOWN)
-    // {
-    //     posY += hero_stepY;
-    // }
 
     return gameReaction::gr_ignore;
 }
