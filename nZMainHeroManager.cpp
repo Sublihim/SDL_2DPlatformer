@@ -119,26 +119,11 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
     else if (state == STOP || state == FOLLOW)
     {
         int distance = gameMap->getDistanceFollow(g_obj->getGameObjectZone(), tilesMgr);
-        if (distance > 0)
-        {
-            newPositionY = g_obj->getPositionBeginY();
-
-            if (distance >= hero_stepY)
-                newPositionY += hero_stepY;
-            else if (distance > 0)
-                newPositionY += distance;
-
-            state = FOLLOW;
-            g_obj->setPosition(newPositionX, newPositionY);
-        }
-        else
-        {
-            state = STOP;
-        }
+        processFollow(distance);
     }
     else if (state == JUMP)
     {
-        if (jumpCounter++ < 3)
+        if (jumpCounter++ < 5)
         {
             newPositionY = g_obj->getPositionBeginY();
             newPositionY -= hero_stepY;
@@ -152,6 +137,26 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
     }
 }
 
+
+void nZMainHeroMgr::processFollow(int distance)
+{
+    if (distance > 0)
+    {
+        newPositionY = g_obj->getPositionBeginY();
+
+        if (distance >= hero_stepY)
+            newPositionY += hero_stepY;
+        else if (distance > 0)
+            newPositionY += distance;
+
+        state = FOLLOW;
+        g_obj->setPosition(newPositionX, newPositionY);
+    }
+    else
+    {
+        state = STOP;
+    }
+}
 
 gameReaction nZMainHeroMgr::process_keyboard_keyup(SDL_Keycode keycode)
 {

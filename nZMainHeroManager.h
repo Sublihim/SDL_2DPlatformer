@@ -19,6 +19,8 @@ private:
     int newPositionY;
     int jumpCounter;
     StateHero state;
+
+    void processFollow(int distance);
 public:
     nZMainHeroMgr();
     ~nZMainHeroMgr();
