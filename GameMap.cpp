@@ -83,6 +83,8 @@ bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const TilesMgr* tilesMg
     return res;
 }
 
+// Определяет расстояние до объекта внизу, если он есть
+// возвращает расстояние до оъека или -1, если нет пересечений
 int GameMap::getDistanceFollow(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const
 {
     int distance = -1;
@@ -91,7 +93,7 @@ int GameMap::getDistanceFollow(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr
         auto texture = tilesMgr->getTextureByType(item.tile);
         const auto& point = item.point;
         int tileRight = point.x + texture->getWidth();
-        int objRight = sdlRect.x + sdlRect.y;
+        int objRight = sdlRect.x + sdlRect.w;
         bool inIntersect = !((sdlRect.x < point.x && objRight < point.x) ||
                             (sdlRect.x > tileRight && objRight > tileRight));
         if (inIntersect)
