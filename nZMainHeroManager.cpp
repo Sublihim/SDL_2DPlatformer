@@ -8,7 +8,8 @@ nZMainHeroMgr::nZMainHeroMgr()
  , gameHeight(0)
  , newPositionX(0)
  , newPositionY(0)
-  , state(STOP)
+ , jumpCounter(0)
+ , state(STOP)
 {
     g_obj = new MainHero();
     dynamic_cast<MainHero*>(g_obj)->setDirectionRight();
@@ -68,8 +69,10 @@ gameReaction nZMainHeroMgr::process_mouse_button_event(SDL_MouseButtonEvent m_bt
 
 gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
-    if (state != STOP)
+    if (state != STOP)// && state != JUMP)
         return gameReaction::gr_ignore;
+
+    //!(state == STOP || state == JUMP)
 
     int posX = g_obj->getPositionBeginX();
         //posY = g_obj->getPositionBeginY();
@@ -80,13 +83,19 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
     {
         newPositionX = posX - hero_stepX;
         mh->setDirectionLeft();
+        state = MOVE;
     }
     else if(keycode == SDLK_RIGHT)
     {
         newPositionX = posX + hero_stepX;
         mh->setDirectionRight();
+        state = MOVE;
     }
-    state = MOVE;
+    else if(keycode == SDLK_SPACE)
+    {
+        if (state != FOLLOW)
+            state = JUMP;
+    }
     // else if(keycode == SDLK_UP)
     // {
     //     posY -= hero_stepY;
@@ -95,9 +104,7 @@ gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
     // {
     //     posY += hero_stepY;
     // }
-    // else if(keycode == SDLK_SPACE)
-    // {
-    // }
+
     return gameReaction::gr_ignore;
 }
 
@@ -121,11 +128,11 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
     }
     else if (state == STOP || state == FOLLOW)
     {
-        //хорошо бы проверить не падаем ли мы вниз и если да, то переместить
         int distance = gameMap->getDistanceFollow(g_obj->getGameObjectZone(), tilesMgr);
-        if (distance >= 0)
+        if (distance > 0)
         {
             newPositionY = g_obj->getPositionBeginY();
+
             if (distance >= hero_stepY)
                 newPositionY += hero_stepY;
             else if (distance > 0)
@@ -134,14 +141,33 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
             state = FOLLOW;
             g_obj->setPosition(newPositionX, newPositionY);
         }
-        state = STOP;
+        else
+        {
+            state = STOP;
+        }
+    }
+    else if (state == JUMP)
+    {
+        if (jumpCounter++ < 3)
+        {
+            newPositionY = g_obj->getPositionBeginY();
+            newPositionY -= hero_stepY;
+            g_obj->setPosition(newPositionX, newPositionY);
+        }
+        else
+        {
+            jumpCounter = 0;
+            state = STOP;
+        }
     }
 }
+
 
 gameReaction nZMainHeroMgr::process_keyboard_keyup(SDL_Keycode keycode)
 {
     return gr_ignore;
 }
+
 
 SDL_Point nZMainHeroMgr::getPoint() const
 {

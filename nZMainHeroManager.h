@@ -17,6 +17,7 @@ private:
     int gameHeight;
     int newPositionX;
     int newPositionY;
+    int jumpCounter;
     StateHero state;
 public:
     nZMainHeroMgr();
