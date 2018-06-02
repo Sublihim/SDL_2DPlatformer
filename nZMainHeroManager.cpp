@@ -103,15 +103,7 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
 {
     if (state == MOVE)
     {
-        newPositionY = g_obj->getPositionBeginY();
-        if (newPositionX < 0)
-            newPositionX = 0;
-        if (newPositionX + g_obj->getObjectWidth() > gameWidth)
-            newPositionX -= hero_stepX;
-        if (newPositionY < 0)
-            newPositionY = 0;
-        if (newPositionY + g_obj->getObjectHeight() > gameHeight)
-            newPositionY -= hero_stepY;
+        checkBoundaryPosition();
 
         g_obj->setPosition(newPositionX, newPositionY);
         state = STOP;
@@ -135,6 +127,20 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
             state = STOP;
         }
     }
+}
+
+
+void nZMainHeroMgr::checkBoundaryPosition()
+{
+    newPositionY = g_obj->getPositionBeginY();
+    if (newPositionX < 0)
+        newPositionX = 0;
+    if (newPositionX + g_obj->getObjectWidth() > gameWidth)
+        newPositionX -= hero_stepX;
+    if (newPositionY < 0)
+        newPositionY = 0;
+    if (newPositionY + g_obj->getObjectHeight() > gameHeight)
+        newPositionY -= hero_stepY;
 }
 
 

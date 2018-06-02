@@ -21,6 +21,7 @@ private:
     StateHero state;
 
     void processFollow(int distance);
+    void checkBoundaryPosition();
 public:
     nZMainHeroMgr();
     ~nZMainHeroMgr();
