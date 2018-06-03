@@ -5,7 +5,6 @@
 GameMap::GameMap()
     : gameWidth(0)
     , gameHeight(0)
-    , correctY(0)
 {
 }
 
@@ -57,32 +56,6 @@ void GameMap::setGameBounds(int width, int height)
     gameHeight = height;
 }
 
-
-bool GameMap::isCollisionBottom(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const
-{
-    bool res = false;
-    for(const auto& item : map)
-    {
-        auto texture = tilesMgr->getTextureByType(item.tile);
-        const auto& point = item.point;
-        SDL_Rect rectMapObj = {
-            point.x,
-            gameHeight - point.y, //переходим к y координате
-            texture->getWidth(),
-            texture->getHeight()
-        };
-
-        auto result = SDL_HasIntersection(&sdlRect, &rectMapObj);
-        if (result == SDL_TRUE)
-        {
-            res = true;
-            correctY = (rectMapObj.y) - (sdlRect.y + sdlRect.h);
-            break;
-        }
-    }
-    return res;
-}
-
 // Определяет расстояние до объекта внизу, если он есть
 // возвращает расстояние до оъека или -1, если нет пересечений
 int GameMap::getDistanceFollow(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr) const
@@ -103,11 +76,4 @@ int GameMap::getDistanceFollow(const SDL_Rect& sdlRect, const TilesMgr* tilesMgr
         }
     }
     return distance;
-}
-
-int GameMap::getCorrectY() const
-{
-    int res = correctY;
-    correctY = 0;
-    return res;
 }
