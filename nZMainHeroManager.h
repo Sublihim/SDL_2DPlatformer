@@ -10,7 +10,7 @@ class TilesMgr;
 class nZMainHeroMgr : public GameObjectMgr
 {
 private:
-    enum StateHero {STOP, MOVE, FOLLOW, JUMP};
+    enum StateHero {STOP, MOVE, FOLLOW};
     int hero_stepX;
     int hero_stepY;
     int gameWidth;

@@ -8,7 +8,7 @@ nZMainHeroMgr::nZMainHeroMgr()
  , gameHeight(0)
  , newPositionX(0)
  , newPositionY(0)
- , jumpCounter(0)
+ , jumpCounter(-1)
  , state(STOP)
 {
     g_obj = new MainHero();
@@ -69,32 +69,28 @@ gameReaction nZMainHeroMgr::process_mouse_button_event(SDL_MouseButtonEvent m_bt
 
 gameReaction nZMainHeroMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
-    if (state != STOP)
-        return gameReaction::gr_ignore;
-
-    int posX = g_obj->getPositionBeginX();
-        //posY = g_obj->getPositionBeginY();
+    //if (state != STOP)
+    //    return gameReaction::gr_ignore;
 
     MainHero* mh = dynamic_cast<MainHero*>(g_obj);
 
     if(keycode == SDLK_LEFT)
     {
-        newPositionX = posX - hero_stepX;
+        newPositionX = g_obj->getPositionBeginX() - hero_stepX;
         mh->setDirectionLeft();
         state = MOVE;
     }
     else if(keycode == SDLK_RIGHT)
     {
-        newPositionX = posX + hero_stepX;
+        newPositionX = g_obj->getPositionBeginX() + hero_stepX;
         mh->setDirectionRight();
         state = MOVE;
     }
     else if(keycode == SDLK_SPACE)
     {
         if (state != FOLLOW)
-            state = JUMP;
+            jumpCounter = 0;
     }
-
     return gameReaction::gr_ignore;
 }
 
@@ -104,7 +100,6 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
     if (state == MOVE)
     {
         checkBoundaryPosition();
-
         g_obj->setPosition(newPositionX, newPositionY);
         state = STOP;
     }
@@ -113,7 +108,8 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
         int distance = gameMap->getDistanceFollow(g_obj->getGameObjectZone(), tilesMgr);
         processFollow(distance);
     }
-    else if (state == JUMP)
+
+    if (jumpCounter >=0)
     {
         processJump();
     }
@@ -122,7 +118,7 @@ void nZMainHeroMgr::move(const GameMap* gameMap, const TilesMgr* tilesMgr)
 
 void nZMainHeroMgr::processJump()
 {
-    if (jumpCounter++ < 5)
+    if (jumpCounter++ != 5)
     {
         newPositionY = g_obj->getPositionBeginY();
         newPositionY -= hero_stepY;
@@ -130,10 +126,11 @@ void nZMainHeroMgr::processJump()
     }
     else
     {
-        jumpCounter = 0;
+        jumpCounter = -1;
         state = STOP;
     }
 }
+
 
 void nZMainHeroMgr::checkBoundaryPosition()
 {
